@@ -383,6 +383,57 @@
   @media (max-width:680px){ .sched{grid-template-columns:1fr;} }
   select.staff-input{cursor:pointer;}
 
+  /* 멘토 모드 + 헤더 액션 */
+  .head-actions{display:flex;gap:.5rem;flex-wrap:wrap;}
+  #mentorToggle[aria-pressed="true"]{background:var(--ink);color:#FBE96A;border-color:var(--ink);}
+  body.theme-dark #mentorToggle[aria-pressed="true"]{background:#FBE96A;color:#16101a;border-color:#FBE96A;}
+  .mentor-flag{background:rgba(20,16,20,.9);color:#FBE96A;border-radius:8px;padding:.55rem .85rem;font-size:.86rem;margin:.2rem 0 1rem;}
+  body.theme-dark .mentor-flag{background:#FBE96A;color:#16101a;}
+
+  /* 선점 바 + 클레임 */
+  .claim-bar{display:flex;gap:.7rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:1.3rem;}
+  .day-hint{font-size:.8rem;color:var(--accent);font-weight:700;}
+  .sched li.claim{flex-wrap:wrap;}
+  .sched .slot-state{margin-left:auto;display:inline-flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+  .sched .claim-btn{font-family:inherit;font-weight:900;font-size:.78rem;cursor:pointer;background:var(--ink);color:var(--yellow);border:none;border-radius:999px;padding:.34rem .85rem;}
+  body.theme-dark .sched .claim-btn{background:var(--accent);color:#16101a;}
+  .sched .claim-btn:hover{transform:translateY(-1px);}
+  .sched .taken{display:inline-flex;align-items:center;gap:.45rem;background:var(--accent);color:#fff;font-weight:900;font-size:.78rem;border-radius:999px;padding:.18rem .25rem .18rem .65rem;}
+  body.theme-dark .sched .taken{color:#16101a;}
+  .sched .taken .who{font-weight:600;opacity:.85;}
+  .sched .taken .cancel{cursor:pointer;border:none;background:rgba(255,255,255,.28);color:inherit;border-radius:999px;width:1.35rem;height:1.35rem;font-weight:900;line-height:1;}
+  .sched .taken .cancel:hover{background:rgba(255,255,255,.5);}
+
+  /* 채팅 */
+  .chat-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.1rem;}
+  .chat-tab{font-family:inherit;font-weight:800;font-size:.9rem;cursor:pointer;background:transparent;color:var(--text);border:2px solid var(--rule);border-radius:999px;padding:.42rem .95rem;display:inline-flex;align-items:center;gap:.45rem;}
+  .chat-tab .cnt{font-size:.72rem;background:var(--accent);color:#fff;border-radius:999px;padding:.05rem .45rem;font-weight:900;}
+  body.theme-dark .chat-tab .cnt{color:#16101a;}
+  .chat-tab[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent);}
+  body.theme-dark .chat-tab[aria-selected="true"]{color:#16101a;}
+  .chat-tab[aria-selected="true"] .cnt{background:rgba(255,255,255,.32);color:inherit;}
+  .chat-room{border:2.5px solid var(--ink);border-radius:12px;overflow:hidden;}
+  body.theme-dark .chat-room{border-color:var(--text);}
+  .chat-room-head{background:var(--ink);color:#fff;padding:.65rem 1rem;font-weight:900;font-size:.95rem;}
+  body.theme-dark .chat-room-head{background:#0d0912;color:var(--text);}
+  .chat-room-head em{font-style:normal;font-weight:500;opacity:.7;font-size:.85rem;}
+  .chat-thread{max-height:360px;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.55rem;background:rgba(20,16,20,.03);}
+  body.theme-dark .chat-thread{background:rgba(255,255,255,.03);}
+  .msg{max-width:82%;padding:.5rem .75rem;border-radius:13px;font-size:.92rem;line-height:1.5;position:relative;word-break:break-word;}
+  .msg .meta{display:block;font-size:.7rem;font-weight:800;opacity:.75;margin-bottom:.15rem;}
+  .msg .time{font-weight:400;opacity:.7;margin-left:.35rem;}
+  .msg.team{align-self:flex-start;background:#fff;color:#1a141a;border:1.5px solid var(--rule);border-bottom-left-radius:3px;}
+  body.theme-dark .msg.team{background:#241830;color:#f4ecff;}
+  .msg.mentor{align-self:flex-end;background:var(--ink);color:#FBE96A;border-bottom-right-radius:3px;}
+  body.theme-dark .msg.mentor{background:#FBE96A;color:#16101a;}
+  .msg .del{position:absolute;top:.05rem;right:.2rem;border:none;background:transparent;color:inherit;opacity:.4;cursor:pointer;font-weight:900;font-size:.72rem;padding:.1rem;}
+  .msg .del:hover{opacity:1;}
+  .chat-thread-empty{opacity:.6;font-style:italic;text-align:center;padding:1.4rem 0;}
+  .chat-form{display:flex;gap:.5rem;padding:.7rem;border-top:2px solid var(--rule);background:var(--card);flex-wrap:wrap;align-items:flex-end;}
+  .chat-form .chat-name{max-width:8.5rem;}
+  .chat-form .chat-text{flex:1;min-width:10rem;min-height:2.7rem;resize:vertical;}
+  .chat-empty{opacity:.6;font-style:italic;}
+
   /* 저장 상태 안내 */
   .store-banner{
     font-size:.82rem;font-weight:700;border-radius:8px;padding:.5rem .8rem;margin:.2rem 0 1.4rem;
@@ -595,7 +646,7 @@
     <!-- 1) 비밀번호 화면 -->
     <div class="staff-gate" id="staffGate">
       <h2 id="staffTitle">작가·스태프 전용</h2>
-      <p class="lead">리허설 시간 신청과 기술자문 게시판입니다.<br>공유된 비밀번호를 입력해 주세요.</p>
+      <p class="lead">공연 일정·리허설 정보입니다.<br>공유된 비밀번호를 입력해 주세요.</p>
       <form id="staffForm" autocomplete="off">
         <label for="staffPass" class="lbl" style="position:absolute;left:-9999px;">비밀번호</label>
         <input type="password" id="staffPass" class="staff-input" placeholder="비밀번호" autocomplete="current-password" />
@@ -610,25 +661,14 @@
         <h2 id="staffPanelTitle">작가·스태프 라운지</h2>
         <button type="button" class="staff-btn ghost sm" id="staffLogout">나가기</button>
       </div>
-      <div class="store-banner" id="storeBanner">
-        ⚠️ 지금은 <b>임시 저장(내 브라우저)</b> 모드입니다. 작성한 내용은 이 기기에만 보입니다. 공유 게시판으로 전환하려면 Firebase 연결이 필요합니다.
-      </div>
 
-      <!-- 팀 약칭 안내 -->
-      <div class="team-legend" aria-label="팀 약칭 안내">
-        <span class="legend-title">팀 약칭</span>
-        <span class="tchip"><b>틸송</b> <em>프시타쿠스 프로토콜</em></span>
-        <span class="tchip"><b>보송</b> <em>히든 사운즈</em></span>
-        <span class="tchip"><b>틸차</b> <em>풍선, 호흡하다</em></span>
-        <span class="tchip"><b>환송</b> <em>“뉘앙스” 글리프 듀엣</em></span>
-        <span class="tchip"><b>보정</b> <em>토리, 번지는</em></span>
-        <span class="tchip"><b>환즈</b> <em>Rhizome</em></span>
-      </div>
+      <!-- 팀 약칭 안내 (공연 순서) -->
+      <div class="team-legend" id="teamLegend" aria-label="팀 약칭 안내 (공연 순서)"></div>
 
       <!-- 일정 & 리허설 -->
       <div class="staff-block">
         <h3>🎧 공연 일정 &amp; 리허설</h3>
-        <p class="block-desc">7/11(준비·리허설), 7/12(공연 당일) 확정 일정입니다. 7/12 리허설은 팀별로 배정돼 있어요.</p>
+        <p class="block-desc">7/11(준비·리허설), 7/12(공연 당일) 일정입니다. <b>7/11 리허설 1~6 신청은 카톡방</b>에서 받습니다.</p>
         <hr class="staff-divider" />
         <div class="sched">
           <div class="sched-day">
@@ -649,11 +689,11 @@
             <div class="sched-date">7/12 (일) · 공연 당일</div>
             <ul>
               <li><span class="t">12:00–13:00</span><span class="ev">세팅 (포스터)</span></li>
-              <li class="reh"><span class="t">13:00–13:30</span><span class="ev">리허설 1 <span class="tag">틸송</span></span></li>
-              <li class="reh"><span class="t">13:30–14:00</span><span class="ev">리허설 2 <span class="tag">보송</span></span></li>
-              <li class="reh"><span class="t">14:00–14:30</span><span class="ev">리허설 3 <span class="tag">틸차</span></span></li>
-              <li class="reh"><span class="t">14:30–15:00</span><span class="ev">리허설 4 <span class="tag">환송</span></span></li>
-              <li class="reh"><span class="t">15:00–15:30</span><span class="ev">리허설 5 <span class="tag">보정</span></span></li>
+              <li class="reh"><span class="t">13:00–13:30</span><span class="ev">리허설 1 <span class="tag">환즈</span></span></li>
+              <li class="reh"><span class="t">13:30–14:00</span><span class="ev">리허설 2 <span class="tag">보정</span></span></li>
+              <li class="reh"><span class="t">14:00–14:30</span><span class="ev">리허설 3 <span class="tag">환송</span></span></li>
+              <li class="reh"><span class="t">14:30–15:00</span><span class="ev">리허설 4 <span class="tag">틸차</span></span></li>
+              <li class="reh"><span class="t">15:00–15:30</span><span class="ev">리허설 5 <span class="tag">보송</span></span></li>
               <li class="reh"><span class="t">15:30–16:00</span><span class="ev">리허설 6 <span class="tag">틸송</span></span></li>
               <li><span class="t">16:00–17:00</span><span class="ev">이른 저녁 식사</span></li>
               <li><span class="t">17:30–18:00</span><span class="ev">테크 리허설</span></li>
@@ -666,38 +706,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- 기술자문 게시판 -->
-      <div class="staff-block">
-        <h3>📝 기술자문 게시판</h3>
-        <p class="block-desc">필요한 기술자문을 포스트잇으로 남겨주세요. <b>소속 팀</b>을 꼭 적어주세요. 멘토님이 확인합니다.</p>
-        <hr class="staff-divider" />
-        <form class="note-form" id="noteForm" autocomplete="off">
-          <div class="field">
-            <label for="noteTeam">소속 팀 <span class="req">*</span></label>
-            <select id="noteTeam" class="staff-input" required>
-              <option value="" selected disabled>팀 선택</option>
-              <option value="틸송">틸송 — 프시타쿠스 프로토콜</option>
-              <option value="보송">보송 — 히든 사운즈</option>
-              <option value="틸차">틸차 — 풍선, 호흡하다</option>
-              <option value="환송">환송 — “뉘앙스” 글리프 듀엣</option>
-              <option value="보정">보정 — 토리, 번지는</option>
-              <option value="환즈">환즈 — Rhizome</option>
-              <option value="공통">공통 / 기타</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="noteName">이름 (선택)</label>
-            <input type="text" id="noteName" class="staff-input" placeholder="예) 신은송" />
-          </div>
-          <div class="field grow">
-            <label for="noteBody">기술자문 내용 <span class="req">*</span></label>
-            <textarea id="noteBody" class="staff-input" placeholder="예) 무선 마이크 4채널 동시 사용 시 간섭 해결 방법이 궁금합니다." required></textarea>
-          </div>
-          <button type="submit" class="staff-btn sm">📌 붙이기</button>
-        </form>
-        <div class="note-board" id="noteBoard"></div>
       </div>
     </div>
   </div>
@@ -864,20 +872,11 @@ readAllBtn.addEventListener('click', ()=>{
 window.addEventListener('beforeunload', ()=>{ if(supported) synth.cancel(); });
 
 /* =========================================================
-   4) 작가·스태프 전용 (비밀번호 잠금 + 리허설 + 기술자문 게시판)
+   4) 작가·스태프 전용 (비밀번호 잠금 + 공연 일정/리허설)
    ---------------------------------------------------------
-   ▸ 비밀번호 바꾸기:  아래 STAFF_PASS 값을 원하는 비밀번호로 수정
-   ▸ 공유 게시판으로 전환: 아래 USE_CLOUD = true 로 바꾸고
-                          firebaseConfig 에 Firebase 설정을 붙여넣기
+   ▸ 비밀번호 바꾸기: 아래 STAFF_PASS 값을 원하는 비밀번호로 수정
    ========================================================= */
 const STAFF_PASS = 'sorri4444';           // ← 작가들과 공유할 비밀번호 (여기만 고치면 됩니다)
-
-const USE_CLOUD = false;                  // ← Firebase 연결되면 true 로
-const firebaseConfig = {
-  /* 여기에 Firebase 설정을 붙여넣으세요 (USE_CLOUD = true 일 때만 사용)
-  apiKey: "...", authDomain: "...", projectId: "...",
-  storageBucket: "...", messagingSenderId: "...", appId: "..." */
-};
 
 (function staffModule(){
   const overlay   = document.getElementById('staffOverlay');
@@ -886,153 +885,28 @@ const firebaseConfig = {
   const form      = document.getElementById('staffForm');
   const passInput = document.getElementById('staffPass');
   const errMsg    = document.getElementById('staffErr');
-  const banner    = document.getElementById('storeBanner');
-  const noteBoard = document.getElementById('noteBoard');
-  const noteForm  = document.getElementById('noteForm');
+  const teamLegend= document.getElementById('teamLegend');
 
+  /* ---------- 팀 (공연 순서) ---------- */
+  const TEAMS = [
+    {ab:'환즈', title:'Rhizome'},
+    {ab:'보정', title:'토리, 번지는'},
+    {ab:'환송', title:'“뉘앙스” 글리프 듀엣'},
+    {ab:'틸차', title:'풍선, 호흡하다'},
+    {ab:'보송', title:'히든 사운즈'},
+    {ab:'틸송', title:'프시타쿠스 프로토콜'},
+  ];
   /* ---------- 작은 도우미 ---------- */
   const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c =>
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  // 시간 함수는 페이지 환경에서 막혀 있어 직접 카운터로 고유 id 생성
-  let _seq = 0;
-  const uid = () => 'id' + (_seq++) + '_' + (performance.now()|0) + Math.round(performance.now()%1000);
-  const fmtDate = ts => { try{ return new Date(ts).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});}catch(e){ return ''; } };
-
-  /* =========================================================
-     저장소(Store) — local 모드 기본, cloud(Firebase) 선택
-     컬렉션:  'consult'(기술자문 게시판 메모 + 댓글)
-     각 항목:  {id, team, name, body, ts, comments:[...]}
-     ========================================================= */
-  const Store = (function(){
-    const LISTENERS = { consult:[] };
-    function emit(col){ (LISTENERS[col]||[]).forEach(cb=>cb()); }
-
-    /* ---- LOCAL: 브라우저 저장 ---- */
-    const local = {
-      key: c => 'sori_staff_' + c,
-      list(c){ try{ return JSON.parse(localStorage.getItem(this.key(c))||'[]'); }catch(e){ return []; } },
-      _save(c, arr){ localStorage.setItem(this.key(c), JSON.stringify(arr)); emit(c); },
-      add(c, obj){ const arr=this.list(c); arr.push(obj); this._save(c, arr); },
-      update(c, id, fn){ const arr=this.list(c); const i=arr.findIndex(x=>x.id===id); if(i>=0){ fn(arr[i]); this._save(c,arr);} },
-      remove(c, id){ this._save(c, this.list(c).filter(x=>x.id!==id)); },
-      onChange(c, cb){ LISTENERS[c].push(cb); }
-    };
-    // 다른 탭에서 바뀌면 갱신
-    window.addEventListener('storage', e=>{
-      if(e.key==='sori_staff_consult') emit('consult');
-    });
-
-    /* ---- CLOUD: Firebase Firestore (USE_CLOUD = true 일 때) ---- */
-    // 데이터 흐름이 local 과 동일하도록 캐시를 두고 onSnapshot 으로 갱신
-    const cloud = (function(){
-      const cache = { consult:[] };
-      let db = null, fns = null, ready = false;
-      async function init(){
-        const app = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
-        fns = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-        const a = app.initializeApp(firebaseConfig);
-        db = fns.getFirestore(a);
-        ['consult'].forEach(c=>{
-          fns.onSnapshot(fns.collection(db,c), snap=>{
-            cache[c] = snap.docs.map(d=>({id:d.id, ...d.data()}));
-            emit(c);
-          });
-        });
-        ready = true;
-      }
-      return {
-        _init: init,
-        list(c){ return cache[c]||[]; },
-        async add(c, obj){ const {id, ...rest}=obj; await fns.setDoc(fns.doc(db,c,id), rest); },
-        async update(c, id, fn){ const cur=cache[c].find(x=>x.id===id); if(!cur) return; const copy={...cur}; fn(copy); const {id:_i, ...rest}=copy; await fns.setDoc(fns.doc(db,c,id), rest); },
-        async remove(c, id){ await fns.deleteDoc(fns.doc(db,c,id)); },
-        onChange(c, cb){ LISTENERS[c].push(cb); }
-      };
-    })();
-
-    const impl = USE_CLOUD ? cloud : local;
-    return {
-      mode: USE_CLOUD ? 'cloud' : 'local',
-      init: USE_CLOUD ? cloud._init : (async()=>{}),
-      list:(c)=>impl.list(c),
-      add:(c,o)=>impl.add(c,o),
-      update:(c,id,fn)=>impl.update(c,id,fn),
-      remove:(c,id)=>impl.remove(c,id),
-      onChange:(c,cb)=>impl.onChange(c,cb)
-    };
-  })();
 
   /* =========================================================
      렌더링
      ========================================================= */
-  function renderNotes(){
-    const notes = Store.list('consult').slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
-    if(!notes.length){
-      noteBoard.innerHTML = '<p class="note-empty">아직 등록된 기술자문 메모가 없습니다.</p>';
-      return;
-    }
-    noteBoard.innerHTML = notes.map(n=>{
-      const comments = (n.comments||[]).map(c=>{
-        const who = c.mentor ? ('🎓 멘토' + (c.who ? ' '+esc(c.who) : '')) : esc(c.who || '작가');
-        return `<div class="cmt ${c.mentor?'mentor':''}">
-          <button class="x" data-delcmt="${n.id}" data-cid="${esc(c.cid)}" aria-label="댓글 삭제">✕</button>
-          <span class="who">${who}</span> ${esc(c.text)}
-        </div>`;
-      }).join('');
-      return `<div class="note">
-        <button class="del" data-delnote="${n.id}" aria-label="메모 삭제">✕</button>
-        <span class="note-team">${esc(n.team)}</span>
-        <div class="note-body">${esc(n.body)}</div>
-        <div class="note-foot"><span>${esc(n.name||'')}</span><span>${esc(fmtDate(n.ts))}</span></div>
-        <div class="note-comments">
-          ${comments}
-          <form class="reply-form" data-note="${n.id}">
-            <textarea name="text" placeholder="답변·댓글 남기기 (예: 줌미팅이 필요해요)" required></textarea>
-            <div class="reply-row">
-              <input type="text" name="who" placeholder="이름(선택)" />
-              <label><input type="checkbox" name="mentor" /> 멘토 답변</label>
-              <button type="submit" class="reply-btn">남기기</button>
-            </div>
-          </form>
-        </div>
-      </div>`;
-    }).join('');
+  function renderLegend(){
+    teamLegend.innerHTML = '<span class="legend-title">팀 약칭</span>' +
+      TEAMS.map(t=>`<span class="tchip"><b>${esc(t.ab)}</b> <em>${esc(t.title)}</em></span>`).join('');
   }
-
-  /* =========================================================
-     이벤트
-     ========================================================= */
-  // 기술자문: 메모 붙이기
-  noteForm.addEventListener('submit', e=>{
-    e.preventDefault();
-    const team = document.getElementById('noteTeam').value.trim();
-    const name = document.getElementById('noteName').value.trim();
-    const body = document.getElementById('noteBody').value.trim();
-    if(!team || !body) return;
-    Store.add('consult', { id:uid(), team, name, body, ts: safeNow() });
-    noteForm.reset();
-  });
-  // 메모 삭제 / 댓글 삭제
-  noteBoard.addEventListener('click', e=>{
-    const dc = e.target.closest('[data-delcmt]');
-    if(dc){ if(confirm('이 댓글을 삭제할까요?')) Store.update('consult', dc.dataset.delcmt, n=>{ n.comments=(n.comments||[]).filter(c=>c.cid!==dc.dataset.cid); }); return; }
-    const del = e.target.closest('[data-delnote]');
-    if(del && confirm('이 메모를 삭제할까요?')) Store.remove('consult', del.dataset.delnote);
-  });
-  // 답변·댓글 남기기 (멘토 답변 포함)
-  noteBoard.addEventListener('submit', e=>{
-    const f = e.target.closest('.reply-form'); if(!f) return;
-    e.preventDefault();
-    const id   = f.dataset.note;
-    const text = f.querySelector('[name="text"]').value.trim();
-    const who  = f.querySelector('[name="who"]').value.trim();
-    const mentor = f.querySelector('[name="mentor"]').checked;
-    if(!text) return;
-    Store.update('consult', id, n=>{ (n.comments=n.comments||[]).push({cid:uid(), who, text, mentor, ts:safeNow()}); });
-  });
-
-  // 이 환경에서 Date.now 가 막혀 있을 수 있어 안전 래퍼 사용
-  function safeNow(){ try{ return Date.now(); }catch(e){ return Math.round(performance.now()); } }
 
   /* =========================================================
      비밀번호 게이트 / 모달 열고 닫기
@@ -1056,9 +930,7 @@ const firebaseConfig = {
     gate.hidden = true;
     panel.hidden = false;
     errMsg.hidden = true;
-    banner.classList.toggle('cloud', Store.mode==='cloud');
-    if(Store.mode==='cloud') banner.innerHTML = '✅ <b>공유 게시판</b> 모드입니다. 작성한 내용이 모두에게(멘토님 포함) 보입니다.';
-    renderNotes();
+    renderLegend();
   }
 
   staffBtn.addEventListener('click', openModal);
@@ -1082,14 +954,6 @@ const firebaseConfig = {
     }
   });
 
-  // 데이터 변경 시 자동 다시 그리기
-  Store.onChange('consult', renderNotes);
-
-  // 클라우드 모드면 연결 시작
-  Store.init().catch(err=>{
-    console.error('Firebase 연결 실패:', err);
-    banner.innerHTML = '⚠️ 공유 저장소 연결에 실패했습니다. Firebase 설정을 확인해 주세요.';
-  });
 })();
 </script>
 </body>
