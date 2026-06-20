@@ -210,6 +210,191 @@
     .now-playing{left:.8rem;right:.8rem;width:auto;justify-content:center;transform:translateY(160%);}
     .now-playing.show{transform:translateY(0);}
   }
+
+  /* =========================================================
+     작가·스태프 전용 (비밀번호 잠금 + 리허설 + 기술자문 게시판)
+     ========================================================= */
+  .a11y-bar .staff-trigger{background:var(--yellow);color:var(--ink);border-color:var(--yellow);}
+  .a11y-bar .staff-trigger:hover{background:#ffe34d;}
+  body.theme-dark .a11y-bar .staff-trigger{background:var(--accent);border-color:var(--accent);color:#16101a;}
+
+  .staff-overlay{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(20,16,20,.72);backdrop-filter:blur(4px);
+    display:flex;align-items:flex-start;justify-content:center;
+    padding:2.2rem 1rem;overflow-y:auto;
+  }
+  .staff-overlay[hidden]{display:none;}
+  .staff-modal{
+    position:relative;width:100%;max-width:880px;margin:auto;
+    background:var(--card);color:var(--card-text);
+    border:4px solid var(--ink);border-radius:14px;
+    box-shadow:14px 14px 0 var(--purple);
+    padding:2.2rem clamp(1.2rem,4vw,2.6rem) 2.6rem;
+  }
+  body.theme-dark .staff-modal{border-color:var(--text);box-shadow:14px 14px 0 var(--accent);}
+  .staff-close{
+    position:absolute;top:.9rem;right:.9rem;
+    width:2.4rem;height:2.4rem;border-radius:50%;cursor:pointer;
+    background:var(--ink);color:#fff;border:none;font-size:1.1rem;font-weight:900;line-height:1;
+  }
+  body.theme-dark .staff-close{background:var(--accent);color:#16101a;}
+  .staff-modal h2{font-family:"Black Han Sans";font-size:clamp(1.8rem,5vw,2.6rem);margin-bottom:.5rem;}
+  .staff-modal .lead{font-size:1.05rem;margin:0 0 1.5rem;opacity:.85;}
+
+  /* 비밀번호 게이트 */
+  .staff-gate{max-width:30rem;}
+  .staff-gate form{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem;}
+  .staff-input{
+    font-family:inherit;font-size:1rem;font-weight:600;
+    padding:.7rem .9rem;border:2.5px solid var(--ink);border-radius:10px;
+    background:#fff;color:#141014;flex:1;min-width:11rem;
+  }
+  body.theme-dark .staff-input{border-color:var(--text);background:#1c1426;color:#f4ecff;}
+  .staff-input:focus-visible{outline:4px solid var(--accent);outline-offset:2px;}
+  .staff-btn{
+    font-family:inherit;font-weight:900;font-size:1rem;cursor:pointer;
+    background:var(--ink);color:var(--yellow);border:none;border-radius:10px;
+    padding:.7rem 1.3rem;line-height:1;transition:.15s;
+  }
+  body.theme-dark .staff-btn{background:var(--accent);color:#16101a;}
+  .staff-btn:hover{transform:translateY(-2px);}
+  .staff-btn.sm{font-size:.85rem;padding:.5rem .9rem;}
+  .staff-btn.ghost{background:transparent;color:var(--accent);border:2px solid var(--rule);}
+  .staff-err{color:#c0392b;font-weight:800;margin:.8rem 0 0;}
+  body.theme-dark .staff-err{color:#ff8a80;}
+
+  /* 패널 공통 */
+  .staff-panel-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem;}
+  .staff-block{margin-top:2.4rem;}
+  .staff-block > h3{
+    font-family:"Black Han Sans";font-size:clamp(1.4rem,4vw,2rem);
+    color:var(--accent);display:flex;align-items:center;gap:.6rem;margin-bottom:.3rem;
+  }
+  .staff-block .block-desc{font-size:.96rem;opacity:.8;margin:0 0 1.1rem;}
+  .staff-divider{height:3px;background:var(--rule);border:none;margin:0 0 1.2rem;}
+
+  /* 리허설 슬롯 */
+  .slot-list{display:flex;flex-direction:column;gap:1rem;margin-bottom:1.4rem;}
+  .slot{
+    border:2.5px solid var(--ink);border-radius:12px;padding:1rem 1.1rem;
+    background:rgba(244,212,33,.16);
+  }
+  body.theme-dark .slot{border-color:var(--text);background:rgba(201,142,214,.14);}
+  .slot-top{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;flex-wrap:wrap;}
+  .slot-time{font-family:"Black Han Sans";font-size:1.25rem;}
+  .slot-note{font-size:.95rem;opacity:.8;}
+  .slot-signups{list-style:none;padding:0;margin:.8rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem;}
+  .slot-signups li{
+    display:inline-flex;align-items:center;gap:.4rem;
+    background:var(--ink);color:#fff;border-radius:999px;padding:.34rem .7rem;font-size:.85rem;font-weight:700;
+  }
+  body.theme-dark .slot-signups li{background:var(--accent);color:#16101a;}
+  .slot-signups .team{font-weight:900;color:var(--yellow);}
+  body.theme-dark .slot-signups .team{color:#3a1d44;}
+  .slot-signups .x,.slot .del,.note .del{
+    cursor:pointer;background:transparent;border:none;color:inherit;font-weight:900;
+    opacity:.65;padding:0 .1rem;font-size:.95rem;line-height:1;
+  }
+  .slot-signups .x:hover,.slot .del:hover,.note .del:hover{opacity:1;}
+  .slot .del{font-size:1.1rem;}
+  .signup-form,.slot-form,.note-form{display:flex;gap:.5rem;flex-wrap:wrap;align-items:flex-end;margin-top:.9rem;}
+  .signup-form .staff-input{min-width:7rem;padding:.5rem .7rem;font-size:.9rem;}
+  .field{display:flex;flex-direction:column;gap:.25rem;}
+  .field label{font-size:.78rem;font-weight:800;letter-spacing:.04em;opacity:.75;}
+  .field .req{color:var(--accent);}
+  .slot-form{border:2px dashed var(--rule);border-radius:12px;padding:1rem;align-items:flex-end;}
+
+  /* 기술자문 포스트잇 게시판 */
+  .note-form{
+    border:2px dashed var(--rule);border-radius:12px;padding:1.1rem;margin-bottom:1.6rem;
+    align-items:flex-end;
+  }
+  .note-form .grow{flex:1;min-width:14rem;}
+  .note-form textarea.staff-input{width:100%;min-height:3.4rem;resize:vertical;line-height:1.5;}
+  .note-board{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:1.1rem;
+  }
+  .note{
+    position:relative;border-radius:4px;padding:1rem 1rem 1.6rem;
+    color:#1a141a;box-shadow:3px 5px 12px rgba(0,0,0,.22);
+    min-height:9rem;display:flex;flex-direction:column;
+    font-size:.96rem;line-height:1.55;
+  }
+  .note:nth-child(4n+1){background:#FBE96A;transform:rotate(-1.4deg);}
+  .note:nth-child(4n+2){background:#C9B6E4;transform:rotate(1.2deg);}
+  .note:nth-child(4n+3){background:#A8E6CF;transform:rotate(-.7deg);}
+  .note:nth-child(4n+4){background:#FFB7B2;transform:rotate(1.6deg);}
+  .note .note-team{
+    display:inline-block;align-self:flex-start;font-weight:900;font-size:.78rem;
+    background:rgba(20,16,20,.85);color:#fff;border-radius:999px;padding:.2rem .6rem;margin-bottom:.55rem;
+  }
+  .note .note-body{flex:1;white-space:pre-wrap;word-break:break-word;}
+  .note .note-foot{font-size:.72rem;opacity:.65;margin-top:.7rem;display:flex;justify-content:space-between;gap:.5rem;}
+  .note .del{position:absolute;top:.4rem;right:.5rem;color:#1a141a;}
+  .note-empty,.slot-empty{opacity:.6;font-style:italic;padding:.4rem 0;}
+
+  /* 포스트잇 댓글/답변 */
+  .note-comments{margin-top:.7rem;border-top:1.5px dashed rgba(20,16,20,.28);padding-top:.55rem;display:flex;flex-direction:column;gap:.4rem;}
+  .cmt{position:relative;font-size:.82rem;line-height:1.45;background:rgba(255,255,255,.6);border-radius:7px;padding:.4rem .55rem;padding-right:1.3rem;}
+  .cmt .who{font-weight:900;}
+  .cmt.mentor{background:rgba(20,16,20,.88);color:#fff;}
+  .cmt.mentor .who{color:#FBE96A;}
+  .cmt .x{position:absolute;top:.15rem;right:.2rem;cursor:pointer;border:none;background:transparent;color:inherit;font-weight:900;opacity:.5;font-size:.8rem;line-height:1;}
+  .cmt .x:hover{opacity:1;}
+  .reply-form{display:flex;flex-direction:column;gap:.35rem;margin-top:.15rem;}
+  .reply-form textarea,.reply-form input[type="text"]{
+    font-family:inherit;font-size:.8rem;border:1.5px solid rgba(20,16,20,.38);border-radius:7px;
+    padding:.38rem .5rem;background:rgba(255,255,255,.75);color:#1a141a;width:100%;
+  }
+  .reply-form textarea{min-height:2.2rem;resize:vertical;line-height:1.45;}
+  .reply-row{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;}
+  .reply-row input[type="text"]{flex:1;min-width:5rem;width:auto;}
+  .reply-row label{font-size:.74rem;font-weight:800;display:inline-flex;align-items:center;gap:.25rem;white-space:nowrap;}
+  .reply-btn{font-family:inherit;font-weight:900;font-size:.76rem;cursor:pointer;background:#141014;color:#fff;border:none;border-radius:7px;padding:.34rem .7rem;}
+  .reply-btn:hover{background:#000;}
+
+  /* 팀 약칭 안내(범례) */
+  .team-legend{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:.2rem 0 2rem;}
+  .team-legend .legend-title{font-weight:900;font-size:.8rem;color:var(--accent);letter-spacing:.08em;margin-right:.2rem;}
+  .tchip{display:inline-flex;align-items:baseline;gap:.4rem;background:rgba(20,16,20,.06);border:1.5px solid var(--rule);border-radius:999px;padding:.32rem .75rem;font-size:.82rem;}
+  .tchip b{font-weight:900;}
+  .tchip em{font-style:normal;opacity:.72;font-size:.78rem;}
+  body.theme-dark .tchip{background:rgba(255,255,255,.07);}
+
+  /* 일정표 */
+  .sched{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+  .sched-day{border:2.5px solid var(--ink);border-radius:12px;padding:1rem 1.1rem 1.2rem;background:rgba(244,212,33,.1);}
+  body.theme-dark .sched-day{border-color:var(--text);background:rgba(201,142,214,.1);}
+  .sched-date{font-family:"Black Han Sans";font-size:1.2rem;margin-bottom:.6rem;color:var(--accent);}
+  .sched ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+  .sched li{display:flex;gap:.7rem;padding:.45rem 0;border-top:1px solid var(--rule);font-size:.92rem;align-items:baseline;}
+  .sched li:first-child{border-top:none;}
+  .sched .t{font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:6.6rem;}
+  .sched .ev{flex:1;}
+  .sched li.reh{background:rgba(149,89,158,.12);border-radius:6px;margin:0 -.45rem;padding:.45rem;}
+  body.theme-dark .sched li.reh{background:rgba(201,142,214,.16);}
+  .sched li.key{font-weight:900;}
+  .sched .tag{display:inline-block;background:var(--accent);color:#fff;font-weight:900;font-size:.76rem;border-radius:999px;padding:.12rem .55rem;margin-left:.4rem;}
+  body.theme-dark .sched .tag{color:#16101a;}
+  .sched .ctrl{margin-top:.9rem;font-size:.84rem;border-top:2px dashed var(--rule);padding-top:.7rem;}
+  .sched .ctrl b{color:var(--accent);}
+  @media (max-width:680px){ .sched{grid-template-columns:1fr;} }
+  select.staff-input{cursor:pointer;}
+
+  /* 저장 상태 안내 */
+  .store-banner{
+    font-size:.82rem;font-weight:700;border-radius:8px;padding:.5rem .8rem;margin:.2rem 0 1.4rem;
+    background:rgba(149,89,158,.14);border:1.5px solid var(--rule);
+  }
+  .store-banner.cloud{background:rgba(46,160,67,.14);}
+
+  @media (max-width:560px){
+    .staff-modal{padding:1.8rem 1.1rem 2rem;box-shadow:8px 8px 0 var(--purple);}
+    body.theme-dark .staff-modal{box-shadow:8px 8px 0 var(--accent);}
+    .note-board{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+  }
 </style>
 </head>
 <body>
@@ -237,6 +422,9 @@
       <option value="0.95" selected>보통</option>
       <option value="1.1">빠르게</option>
     </select>
+  </div>
+  <div class="grp" style="margin-left:auto;">
+    <button type="button" id="staffBtn" class="staff-trigger" aria-haspopup="dialog">🔒 작가·스태프</button>
   </div>
 </div>
 
@@ -399,6 +587,122 @@
   <button type="button" id="stopBtn">■ 정지</button>
 </div>
 
+<!-- ===== 작가·스태프 전용 (비밀번호 잠금) ===== -->
+<div class="staff-overlay" id="staffOverlay" hidden>
+  <div class="staff-modal" role="dialog" aria-modal="true" aria-labelledby="staffTitle">
+    <button type="button" class="staff-close" data-staff-close aria-label="닫기">✕</button>
+
+    <!-- 1) 비밀번호 화면 -->
+    <div class="staff-gate" id="staffGate">
+      <h2 id="staffTitle">작가·스태프 전용</h2>
+      <p class="lead">리허설 시간 신청과 기술자문 게시판입니다.<br>공유된 비밀번호를 입력해 주세요.</p>
+      <form id="staffForm" autocomplete="off">
+        <label for="staffPass" class="lbl" style="position:absolute;left:-9999px;">비밀번호</label>
+        <input type="password" id="staffPass" class="staff-input" placeholder="비밀번호" autocomplete="current-password" />
+        <button type="submit" class="staff-btn">들어가기 ▸</button>
+      </form>
+      <p class="staff-err" id="staffErr" hidden>비밀번호가 올바르지 않습니다.</p>
+    </div>
+
+    <!-- 2) 잠금 해제 후 패널 -->
+    <div class="staff-panel" id="staffPanel" hidden>
+      <div class="staff-panel-head">
+        <h2 id="staffPanelTitle">작가·스태프 라운지</h2>
+        <button type="button" class="staff-btn ghost sm" id="staffLogout">나가기</button>
+      </div>
+      <div class="store-banner" id="storeBanner">
+        ⚠️ 지금은 <b>임시 저장(내 브라우저)</b> 모드입니다. 작성한 내용은 이 기기에만 보입니다. 공유 게시판으로 전환하려면 Firebase 연결이 필요합니다.
+      </div>
+
+      <!-- 팀 약칭 안내 -->
+      <div class="team-legend" aria-label="팀 약칭 안내">
+        <span class="legend-title">팀 약칭</span>
+        <span class="tchip"><b>틸송</b> <em>프시타쿠스 프로토콜</em></span>
+        <span class="tchip"><b>보송</b> <em>히든 사운즈</em></span>
+        <span class="tchip"><b>틸차</b> <em>풍선, 호흡하다</em></span>
+        <span class="tchip"><b>환송</b> <em>“뉘앙스” 글리프 듀엣</em></span>
+        <span class="tchip"><b>보정</b> <em>토리, 번지는</em></span>
+        <span class="tchip"><b>환즈</b> <em>Rhizome</em></span>
+      </div>
+
+      <!-- 일정 & 리허설 -->
+      <div class="staff-block">
+        <h3>🎧 공연 일정 &amp; 리허설</h3>
+        <p class="block-desc">7/11(준비·리허설), 7/12(공연 당일) 확정 일정입니다. 7/12 리허설은 팀별로 배정돼 있어요.</p>
+        <hr class="staff-divider" />
+        <div class="sched">
+          <div class="sched-day">
+            <div class="sched-date">7/11 (토) · 준비일</div>
+            <ul>
+              <li><span class="t">12:00–14:30</span><span class="ev">세팅 (음향·빔프 설치), 짐 옮기기, 조명, 현수막</span></li>
+              <li class="reh"><span class="t">14:30–15:30</span><span class="ev">리허설 1</span></li>
+              <li class="reh"><span class="t">15:30–16:30</span><span class="ev">리허설 2</span></li>
+              <li class="reh"><span class="t">16:30–17:30</span><span class="ev">리허설 3</span></li>
+              <li><span class="t">17:30–18:30</span><span class="ev">저녁 식사</span></li>
+              <li class="reh"><span class="t">18:30–19:30</span><span class="ev">리허설 4</span></li>
+              <li class="reh"><span class="t">19:30–20:30</span><span class="ev">리허설 5</span></li>
+              <li class="reh"><span class="t">20:30–21:30</span><span class="ev">리허설 6</span></li>
+              <li><span class="t">21:30–22:00</span><span class="ev">뒷정리 후 귀가</span></li>
+            </ul>
+          </div>
+          <div class="sched-day">
+            <div class="sched-date">7/12 (일) · 공연 당일</div>
+            <ul>
+              <li><span class="t">12:00–13:00</span><span class="ev">세팅 (포스터)</span></li>
+              <li class="reh"><span class="t">13:00–13:30</span><span class="ev">리허설 1 <span class="tag">틸송</span></span></li>
+              <li class="reh"><span class="t">13:30–14:00</span><span class="ev">리허설 2 <span class="tag">보송</span></span></li>
+              <li class="reh"><span class="t">14:00–14:30</span><span class="ev">리허설 3 <span class="tag">틸차</span></span></li>
+              <li class="reh"><span class="t">14:30–15:00</span><span class="ev">리허설 4 <span class="tag">환송</span></span></li>
+              <li class="reh"><span class="t">15:00–15:30</span><span class="ev">리허설 5 <span class="tag">보정</span></span></li>
+              <li class="reh"><span class="t">15:30–16:00</span><span class="ev">리허설 6 <span class="tag">틸송</span></span></li>
+              <li><span class="t">16:00–17:00</span><span class="ev">이른 저녁 식사</span></li>
+              <li><span class="t">17:30–18:00</span><span class="ev">테크 리허설</span></li>
+              <li class="key"><span class="t">18:00</span><span class="ev">하우스 오픈</span></li>
+              <li class="key"><span class="t">18:30</span><span class="ev">공연 시작</span></li>
+            </ul>
+            <div class="ctrl">
+              <div><b>1부 컨트롤룸</b> 이지후 · 정혜원</div>
+              <div><b>2부 컨트롤룸</b> 차민휘 · 최희윤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기술자문 게시판 -->
+      <div class="staff-block">
+        <h3>📝 기술자문 게시판</h3>
+        <p class="block-desc">필요한 기술자문을 포스트잇으로 남겨주세요. <b>소속 팀</b>을 꼭 적어주세요. 멘토님이 확인합니다.</p>
+        <hr class="staff-divider" />
+        <form class="note-form" id="noteForm" autocomplete="off">
+          <div class="field">
+            <label for="noteTeam">소속 팀 <span class="req">*</span></label>
+            <select id="noteTeam" class="staff-input" required>
+              <option value="" selected disabled>팀 선택</option>
+              <option value="틸송">틸송 — 프시타쿠스 프로토콜</option>
+              <option value="보송">보송 — 히든 사운즈</option>
+              <option value="틸차">틸차 — 풍선, 호흡하다</option>
+              <option value="환송">환송 — “뉘앙스” 글리프 듀엣</option>
+              <option value="보정">보정 — 토리, 번지는</option>
+              <option value="환즈">환즈 — Rhizome</option>
+              <option value="공통">공통 / 기타</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="noteName">이름 (선택)</label>
+            <input type="text" id="noteName" class="staff-input" placeholder="예) 신은송" />
+          </div>
+          <div class="field grow">
+            <label for="noteBody">기술자문 내용 <span class="req">*</span></label>
+            <textarea id="noteBody" class="staff-input" placeholder="예) 무선 마이크 4채널 동시 사용 시 간섭 해결 방법이 궁금합니다." required></textarea>
+          </div>
+          <button type="submit" class="staff-btn sm">📌 붙이기</button>
+        </form>
+        <div class="note-board" id="noteBoard"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* =========================================================
    1) 글자 크기 조절
@@ -558,6 +862,235 @@ readAllBtn.addEventListener('click', ()=>{
 
 /* 페이지를 떠나면 읽기 중지 */
 window.addEventListener('beforeunload', ()=>{ if(supported) synth.cancel(); });
+
+/* =========================================================
+   4) 작가·스태프 전용 (비밀번호 잠금 + 리허설 + 기술자문 게시판)
+   ---------------------------------------------------------
+   ▸ 비밀번호 바꾸기:  아래 STAFF_PASS 값을 원하는 비밀번호로 수정
+   ▸ 공유 게시판으로 전환: 아래 USE_CLOUD = true 로 바꾸고
+                          firebaseConfig 에 Firebase 설정을 붙여넣기
+   ========================================================= */
+const STAFF_PASS = 'sorri4444';           // ← 작가들과 공유할 비밀번호 (여기만 고치면 됩니다)
+
+const USE_CLOUD = false;                  // ← Firebase 연결되면 true 로
+const firebaseConfig = {
+  /* 여기에 Firebase 설정을 붙여넣으세요 (USE_CLOUD = true 일 때만 사용)
+  apiKey: "...", authDomain: "...", projectId: "...",
+  storageBucket: "...", messagingSenderId: "...", appId: "..." */
+};
+
+(function staffModule(){
+  const overlay   = document.getElementById('staffOverlay');
+  const gate      = document.getElementById('staffGate');
+  const panel     = document.getElementById('staffPanel');
+  const form      = document.getElementById('staffForm');
+  const passInput = document.getElementById('staffPass');
+  const errMsg    = document.getElementById('staffErr');
+  const banner    = document.getElementById('storeBanner');
+  const noteBoard = document.getElementById('noteBoard');
+  const noteForm  = document.getElementById('noteForm');
+
+  /* ---------- 작은 도우미 ---------- */
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  // 시간 함수는 페이지 환경에서 막혀 있어 직접 카운터로 고유 id 생성
+  let _seq = 0;
+  const uid = () => 'id' + (_seq++) + '_' + (performance.now()|0) + Math.round(performance.now()%1000);
+  const fmtDate = ts => { try{ return new Date(ts).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});}catch(e){ return ''; } };
+
+  /* =========================================================
+     저장소(Store) — local 모드 기본, cloud(Firebase) 선택
+     컬렉션:  'consult'(기술자문 게시판 메모 + 댓글)
+     각 항목:  {id, team, name, body, ts, comments:[...]}
+     ========================================================= */
+  const Store = (function(){
+    const LISTENERS = { consult:[] };
+    function emit(col){ (LISTENERS[col]||[]).forEach(cb=>cb()); }
+
+    /* ---- LOCAL: 브라우저 저장 ---- */
+    const local = {
+      key: c => 'sori_staff_' + c,
+      list(c){ try{ return JSON.parse(localStorage.getItem(this.key(c))||'[]'); }catch(e){ return []; } },
+      _save(c, arr){ localStorage.setItem(this.key(c), JSON.stringify(arr)); emit(c); },
+      add(c, obj){ const arr=this.list(c); arr.push(obj); this._save(c, arr); },
+      update(c, id, fn){ const arr=this.list(c); const i=arr.findIndex(x=>x.id===id); if(i>=0){ fn(arr[i]); this._save(c,arr);} },
+      remove(c, id){ this._save(c, this.list(c).filter(x=>x.id!==id)); },
+      onChange(c, cb){ LISTENERS[c].push(cb); }
+    };
+    // 다른 탭에서 바뀌면 갱신
+    window.addEventListener('storage', e=>{
+      if(e.key==='sori_staff_consult') emit('consult');
+    });
+
+    /* ---- CLOUD: Firebase Firestore (USE_CLOUD = true 일 때) ---- */
+    // 데이터 흐름이 local 과 동일하도록 캐시를 두고 onSnapshot 으로 갱신
+    const cloud = (function(){
+      const cache = { consult:[] };
+      let db = null, fns = null, ready = false;
+      async function init(){
+        const app = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+        fns = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+        const a = app.initializeApp(firebaseConfig);
+        db = fns.getFirestore(a);
+        ['consult'].forEach(c=>{
+          fns.onSnapshot(fns.collection(db,c), snap=>{
+            cache[c] = snap.docs.map(d=>({id:d.id, ...d.data()}));
+            emit(c);
+          });
+        });
+        ready = true;
+      }
+      return {
+        _init: init,
+        list(c){ return cache[c]||[]; },
+        async add(c, obj){ const {id, ...rest}=obj; await fns.setDoc(fns.doc(db,c,id), rest); },
+        async update(c, id, fn){ const cur=cache[c].find(x=>x.id===id); if(!cur) return; const copy={...cur}; fn(copy); const {id:_i, ...rest}=copy; await fns.setDoc(fns.doc(db,c,id), rest); },
+        async remove(c, id){ await fns.deleteDoc(fns.doc(db,c,id)); },
+        onChange(c, cb){ LISTENERS[c].push(cb); }
+      };
+    })();
+
+    const impl = USE_CLOUD ? cloud : local;
+    return {
+      mode: USE_CLOUD ? 'cloud' : 'local',
+      init: USE_CLOUD ? cloud._init : (async()=>{}),
+      list:(c)=>impl.list(c),
+      add:(c,o)=>impl.add(c,o),
+      update:(c,id,fn)=>impl.update(c,id,fn),
+      remove:(c,id)=>impl.remove(c,id),
+      onChange:(c,cb)=>impl.onChange(c,cb)
+    };
+  })();
+
+  /* =========================================================
+     렌더링
+     ========================================================= */
+  function renderNotes(){
+    const notes = Store.list('consult').slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
+    if(!notes.length){
+      noteBoard.innerHTML = '<p class="note-empty">아직 등록된 기술자문 메모가 없습니다.</p>';
+      return;
+    }
+    noteBoard.innerHTML = notes.map(n=>{
+      const comments = (n.comments||[]).map(c=>{
+        const who = c.mentor ? ('🎓 멘토' + (c.who ? ' '+esc(c.who) : '')) : esc(c.who || '작가');
+        return `<div class="cmt ${c.mentor?'mentor':''}">
+          <button class="x" data-delcmt="${n.id}" data-cid="${esc(c.cid)}" aria-label="댓글 삭제">✕</button>
+          <span class="who">${who}</span> ${esc(c.text)}
+        </div>`;
+      }).join('');
+      return `<div class="note">
+        <button class="del" data-delnote="${n.id}" aria-label="메모 삭제">✕</button>
+        <span class="note-team">${esc(n.team)}</span>
+        <div class="note-body">${esc(n.body)}</div>
+        <div class="note-foot"><span>${esc(n.name||'')}</span><span>${esc(fmtDate(n.ts))}</span></div>
+        <div class="note-comments">
+          ${comments}
+          <form class="reply-form" data-note="${n.id}">
+            <textarea name="text" placeholder="답변·댓글 남기기 (예: 줌미팅이 필요해요)" required></textarea>
+            <div class="reply-row">
+              <input type="text" name="who" placeholder="이름(선택)" />
+              <label><input type="checkbox" name="mentor" /> 멘토 답변</label>
+              <button type="submit" class="reply-btn">남기기</button>
+            </div>
+          </form>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* =========================================================
+     이벤트
+     ========================================================= */
+  // 기술자문: 메모 붙이기
+  noteForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    const team = document.getElementById('noteTeam').value.trim();
+    const name = document.getElementById('noteName').value.trim();
+    const body = document.getElementById('noteBody').value.trim();
+    if(!team || !body) return;
+    Store.add('consult', { id:uid(), team, name, body, ts: safeNow() });
+    noteForm.reset();
+  });
+  // 메모 삭제 / 댓글 삭제
+  noteBoard.addEventListener('click', e=>{
+    const dc = e.target.closest('[data-delcmt]');
+    if(dc){ if(confirm('이 댓글을 삭제할까요?')) Store.update('consult', dc.dataset.delcmt, n=>{ n.comments=(n.comments||[]).filter(c=>c.cid!==dc.dataset.cid); }); return; }
+    const del = e.target.closest('[data-delnote]');
+    if(del && confirm('이 메모를 삭제할까요?')) Store.remove('consult', del.dataset.delnote);
+  });
+  // 답변·댓글 남기기 (멘토 답변 포함)
+  noteBoard.addEventListener('submit', e=>{
+    const f = e.target.closest('.reply-form'); if(!f) return;
+    e.preventDefault();
+    const id   = f.dataset.note;
+    const text = f.querySelector('[name="text"]').value.trim();
+    const who  = f.querySelector('[name="who"]').value.trim();
+    const mentor = f.querySelector('[name="mentor"]').checked;
+    if(!text) return;
+    Store.update('consult', id, n=>{ (n.comments=n.comments||[]).push({cid:uid(), who, text, mentor, ts:safeNow()}); });
+  });
+
+  // 이 환경에서 Date.now 가 막혀 있을 수 있어 안전 래퍼 사용
+  function safeNow(){ try{ return Date.now(); }catch(e){ return Math.round(performance.now()); } }
+
+  /* =========================================================
+     비밀번호 게이트 / 모달 열고 닫기
+     ========================================================= */
+  const staffBtn = document.getElementById('staffBtn');
+  let lastFocus = null;
+
+  function openModal(){
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    if(sessionStorage.getItem('sori_staff_ok')==='1') unlock();
+    else { gate.hidden=false; panel.hidden=true; setTimeout(()=>passInput.focus(),50); }
+  }
+  function closeModal(){
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+  function unlock(){
+    gate.hidden = true;
+    panel.hidden = false;
+    errMsg.hidden = true;
+    banner.classList.toggle('cloud', Store.mode==='cloud');
+    if(Store.mode==='cloud') banner.innerHTML = '✅ <b>공유 게시판</b> 모드입니다. 작성한 내용이 모두에게(멘토님 포함) 보입니다.';
+    renderNotes();
+  }
+
+  staffBtn.addEventListener('click', openModal);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(); });
+  document.querySelectorAll('[data-staff-close]').forEach(b=>b.addEventListener('click', closeModal));
+  document.getElementById('staffLogout').addEventListener('click', ()=>{
+    sessionStorage.removeItem('sori_staff_ok');
+    closeModal();
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !overlay.hidden) closeModal(); });
+
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    if(passInput.value === STAFF_PASS){
+      sessionStorage.setItem('sori_staff_ok','1');
+      passInput.value='';
+      unlock();
+    } else {
+      errMsg.hidden = false;
+      passInput.select();
+    }
+  });
+
+  // 데이터 변경 시 자동 다시 그리기
+  Store.onChange('consult', renderNotes);
+
+  // 클라우드 모드면 연결 시작
+  Store.init().catch(err=>{
+    console.error('Firebase 연결 실패:', err);
+    banner.innerHTML = '⚠️ 공유 저장소 연결에 실패했습니다. Firebase 설정을 확인해 주세요.';
+  });
+})();
 </script>
 </body>
 </html>
