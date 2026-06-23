@@ -164,6 +164,36 @@
   .credits .logo-chip{display:inline-flex;align-items:center;background:var(--ink);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.6rem .95rem;margin-top:.6rem;}
   .credits .logo-chip img{height:30px;width:auto;display:block;}
 
+  /* ===== 페이지 메뉴 (내비게이션) ===== */
+  .sitenav{
+    background:var(--purple-deep);color:#fff;
+    display:flex;flex-wrap:wrap;gap:.2rem .3rem;align-items:center;justify-content:center;
+    padding:.5rem 1rem;
+  }
+  body.theme-dark .sitenav{background:#0d0912;}
+  .sitenav a{
+    color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;
+    padding:.4rem .9rem;border-radius:999px;transition:.15s;white-space:nowrap;
+  }
+  .sitenav a:hover,.sitenav a:focus-visible{background:rgba(255,255,255,.2);outline:none;}
+  section[id]{scroll-margin-top:4.5rem;}
+
+  /* ===== 참여 작가 ===== */
+  .artists .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.7rem 2.4rem;}
+  .artist{border-top:3px solid var(--ink);padding-top:1rem;}
+  body.theme-dark .artist{border-top-color:var(--text);}
+  .artist h3{font-size:1.45rem;margin-bottom:.5rem;}
+  .artist h3 .en{font-family:"Noto Sans KR";font-weight:500;font-size:.9rem;opacity:.6;margin-left:.4rem;}
+  .artist .bio{font-size:1.02rem;opacity:.92;}
+  .artist .listen{margin-top:.9rem;}
+
+  /* ===== 관람 안내 ===== */
+  .info .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem 2.4rem;}
+  .info .item .role{font-weight:900;color:var(--accent);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+  .info .item p{margin:.15rem 0;font-size:1.02rem;}
+  .info .item .sub{opacity:.68;font-size:.9rem;}
+  .info .item p .way{font-weight:800;color:var(--accent);margin-right:.35rem;}
+
   /* ===== 푸터 ===== */
   footer{background:var(--purple-deep);color:#fff;padding:3rem 0;}
   body.theme-dark footer{background:#0d0912;}
@@ -479,6 +509,14 @@
   </div>
 </div>
 
+<nav class="sitenav" aria-label="페이지 메뉴">
+  <a href="#about">소개</a>
+  <a href="#program">작품</a>
+  <a href="#artists">참여작가</a>
+  <a href="#info">관람 안내</a>
+  <a href="#credits">크레딧</a>
+</nav>
+
 <main id="main">
 
   <!-- 히어로 -->
@@ -500,7 +538,7 @@
   </header>
 
   <!-- 공연 소개 -->
-  <section class="about">
+  <section class="about" id="about">
     <div class="wrap" data-speech-root>
       <p class="eyebrow">공연 소개</p>
       <div class="speakable">
@@ -515,7 +553,7 @@
   </section>
 
   <!-- 프로그램 -->
-  <section class="program">
+  <section class="program" id="program">
     <div class="wrap">
       <p class="eyebrow">프로그램</p>
       <h2>작품</h2>
@@ -600,8 +638,99 @@
     </div>
   </section>
 
+  <!-- 참여 작가 -->
+  <section class="artists" id="artists">
+    <div class="wrap">
+      <p class="eyebrow">참여 작가</p>
+      <h2 style="font-family:'Black Han Sans';font-size:clamp(2.2rem,6vw,3.4rem);margin-bottom:2.2rem;">Artists</h2>
+      <div class="grid">
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>신은송</h3>
+            <p class="bio">작곡가이자 사운드 아티스트로, 국내외 페스티벌에서 작품을 발표하며 활동하고 있습니다. 자전적 서사를 바탕으로 AI, 입체음향, 인터랙티브 사운드 전시, 필드레코딩 등을 탐구하는 작업을 이어가고 있으며, 2025년에는 국립아시아문화전당 사운드랩 연구원으로 활동하였습니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>신보경</h3>
+            <p class="bio">익숙한 것을 새롭게 바라보며 소리와 비소리의 경계를 넘나드는 음악 작업을 이어가고 있습니다. 컴퓨터를 동시대의 악기로 활용하며, 무용·영상·설치 등 다양한 예술 분야와의 협업에도 관심을 두고 있습니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>김이베</h3>
+            <p class="bio">음악을 기반으로 시각예술, 퍼포먼스, 인터미디어 실험을 결합하는 다학제적 작업을 수행해왔습니다. 익숙함과 낯섦, 개인과 타자, 자연·인간과 디지털 사이의 역동성을 탐구하며, 시각적 요소를 음악적 구조로 전환하는 오디오비주얼 퍼포먼스를 지속하고 있습니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>틸 최</h3>
+            <p class="bio">구체시와 상호작용하는 음악적 구성에 관심을 두고 있습니다. 기표와 기의의 틈새에서 언어, 번역, 소통을 소재로 매체에 이야기를 실험합니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>이지후</h3>
+            <p class="bio">음악 안에서 발생하는 경계에 주목합니다. 존재와 비존재, 완전함과 불완전함, 통제와 우연 사이의 긴장을 청각적 재료로 삼으며, 전자음악과 어쿠스틱 음악 사이의 물리적·개념적 관계를 중심으로 탐구를 이어가고 있습니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>차민휘</h3>
+            <p class="bio">아날로그 악기의 물리적 구조와 전자음악의 알고리즘적 시스템 사이에서 발생하는 사운드를 실험합니다. 기존 악기의 연주 방식을 해체하고 재구성하며, 신체와 사물이 맺는 관계를 새롭게 탐구합니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+        <article class="artist" data-speech-root>
+          <div class="speakable">
+            <h3>정혜원</h3>
+            <p class="bio">3D 애니메이션을 기반으로 전시와 시각 언어를 확장해온 미디어 아티스트입니다. 공간과 사운드가 만나는 지점을 중심으로 프로젝션 매핑, 실시간 비주얼, 3D 기반 영상을 활용해 감각의 경험을 구성하는 작업을 이어가고 있습니다.</p>
+          </div>
+          <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 관람 안내 -->
+  <section class="info" id="info">
+    <div class="wrap" data-speech-root>
+      <p class="eyebrow">관람 안내</p>
+      <h2 style="font-family:'Black Han Sans';font-size:clamp(2.2rem,6vw,3.4rem);margin-bottom:2.2rem;">Information</h2>
+      <div class="grid speakable">
+        <div class="item">
+          <div class="role">일시</div>
+          <p>2026. 7. 12 (일) 18:30</p>
+          <p class="sub">러닝타임 120분 (인터미션 포함)</p>
+        </div>
+        <div class="item">
+          <div class="role">장소</div>
+          <p>언더스탠드에비뉴 아트스탠드</p>
+          <p class="sub">서울 성동구 왕십리로 63</p>
+        </div>
+        <div class="item">
+          <div class="role">관람 연령</div>
+          <p>만 8세 이상</p>
+        </div>
+        <div class="item">
+          <div class="role">오시는 길</div>
+          <p><span class="way">지하철</span>분당선 서울숲역 3번 출구 도보 1분 (진행 방향 반대편) · 2호선 서울숲역 8번 출구 5분 거리</p>
+          <p><span class="way">버스</span>‘서울숲’ 정류장 — 121, 2014, 2224, 2413</p>
+          <p><span class="way">주차</span>전용 주차 공간이 없으니 대중교통을 이용해 주세요.</p>
+          <p class="sub">유료 인근 주차: 서울숲 공영주차장 (10분당 300원) · 갤러리아 포레 지하주차장 (10분당 500원)</p>
+        </div>
+      </div>
+      <button class="listen" type="button" data-speak><span class="ico">▶</span> 관람 안내 음성으로 듣기</button>
+    </div>
+  </section>
+
   <!-- 크레딧 -->
-  <section class="credits">
+  <section class="credits" id="credits">
     <div class="wrap">
       <p class="eyebrow">크레딧</p>
       <div class="grid">
@@ -616,7 +745,8 @@
         <div class="item"><div class="role">촬영 및 아카이빙</div><div class="name">도토리창고(권재현, 김의진) · 오세아</div><div class="logo-chip"><img src="data:image/png;base64,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" alt="도토리 스튜디오 로고"></div></div>
         <div class="item"><div class="role">포스터 · 리플렛 디자인</div><div class="name">정혜원</div></div>
         <div class="item"><div class="role">공연 스태프</div><div class="name">나종아 · 안은강 · 여기준 · 조수연</div></div>
-        <div class="item"><div class="role">자문 / 멘토링</div><div class="name">조금다른주식회사</div></div>
+        <div class="item"><div class="role">접근성 자문 / 멘토링</div><div class="name">조금다른주식회사</div></div>
+        <div class="item"><div class="role">기술 자문 / 멘토링</div><div class="name">조예본</div></div>
       </div>
     </div>
   </section>
