@@ -889,9 +889,9 @@ const nowPlaying = document.getElementById('nowPlaying');
 const stopBtn = document.getElementById('stopBtn');
 
 const speedSelect = document.getElementById('speedSelect');
-let chosenVoice = null;
+let koVoice = null, enVoice = null;
 
-/* 가장 자연스러운 한국어 목소리 하나를 자동 선택 → 모든 안내가 같은 목소리 */
+/* 한국어 / 영어 음성을 각각 가장 자연스러운 것으로 자동 선택 */
 function voiceScore(v){
   const n = (v.name||'').toLowerCase();
   let s = 0;
@@ -901,20 +901,71 @@ function voiceScore(v){
   if(n.includes('neural')||n.includes('natural')||n.includes('premium')||n.includes('online')) s += 3;
   return s;
 }
-function pickVoice(){
+function enScore(v){
+  const n = (v.name||'').toLowerCase(), l = (v.lang||'').toLowerCase();
+  let s = 0;
+  if(n.includes('google')) s += 5;
+  if(n.includes('samantha')||n.includes('natural')||n.includes('neural')||n.includes('premium')) s += 3;
+  if(l === 'en-us') s += 2;
+  return s;
+}
+function pickVoices(){
   if(!supported) return;
   const voices = synth.getVoices();
   if(!voices.length) return;
   let ko = voices.filter(v => (v.lang||'').toLowerCase().startsWith('ko'));
   if(!ko.length) ko = voices.slice();
   ko.sort((a,b)=> voiceScore(b)-voiceScore(a) || a.name.localeCompare(b.name));
-  chosenVoice = ko[0] || null;
+  koVoice = ko[0] || null;
+  let en = voices.filter(v => (v.lang||'').toLowerCase().startsWith('en'));
+  en.sort((a,b)=> enScore(b)-enScore(a) || a.name.localeCompare(b.name));
+  enVoice = en[0] || null;
 }
 function getRate(){ return parseFloat(speedSelect.value) || 0.95; }
 
+/* 텍스트를 한글/영어 구간으로 나눔 (영어는 영어 음성으로 읽기 위해) */
+function splitByLang(text){
+  const out=[]; let cur='', curLang=null;
+  const langOf = ch => /[A-Za-z]/.test(ch) ? 'en'
+                     : /[가-힣㄰-㆏]/.test(ch) ? 'ko'
+                     : null;
+  for(const ch of text){
+    const l = langOf(ch);
+    if(l===null){ cur+=ch; continue; }      // 숫자·기호·공백은 현재 구간에 붙임
+    if(curLang===null){ curLang=l; cur+=ch; }
+    else if(l===curLang){ cur+=ch; }
+    else { out.push({text:cur, lang:curLang}); cur=ch; curLang=l; }
+  }
+  if(cur.trim()) out.push({text:cur, lang:curLang||'ko'});
+  return out.filter(s=>s.text.trim())
+            .map(s=>({text:s.text.trim(), lang: s.lang==='en' ? 'en-US' : 'ko-KR'}));
+}
+
+/* 구간들을 순서대로, 각 언어 음성으로 이어 읽기 (세션 토큰으로 정지 처리) */
+let speechToken = 0;
+function playSegments(segments, opts){
+  opts = opts || {};
+  const token = ++speechToken;
+  let i = 0, started = false;
+  (function next(){
+    if(token !== speechToken) return;
+    if(i >= segments.length){ if(opts.onDone) opts.onDone(); return; }
+    const seg = segments[i];
+    const u = new SpeechSynthesisUtterance(seg.text);
+    u.lang = seg.lang;
+    const v = seg.lang.startsWith('en') ? enVoice : koVoice;
+    if(v) u.voice = v;
+    u.rate = getRate(); u.pitch = 1.0;
+    u.onstart = ()=>{ if(token===speechToken && !started){ started=true; if(opts.onFirstStart) opts.onFirstStart(); } };
+    u.onend   = ()=>{ if(token===speechToken){ i++; next(); } };
+    u.onerror = ()=>{ if(token===speechToken){ i++; next(); } };
+    synth.speak(u);
+  })();
+}
+
 if(supported){
-  pickVoice();
-  synth.addEventListener('voiceschanged', pickVoice);
+  pickVoices();
+  synth.addEventListener('voiceschanged', pickVoices);
 }
 
 let readingAll = false;
@@ -937,6 +988,7 @@ function clearActive(){
 
 function stopAll(){
   readingAll = false;
+  speechToken++;
   if(supported) synth.cancel();
   clearActive();
 }
@@ -962,15 +1014,12 @@ function speak(text, btn, highlightEl){
   // 이미 같은 버튼이 재생 중이면 → 정지(토글)
   if(activeButton === btn){ stopAll(); return; }
   stopAll();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'ko-KR';
-  if(chosenVoice) u.voice = chosenVoice;
-  u.rate = getRate();
-  u.pitch = 1.0;
-  u.onstart = ()=> setPlayingUI(btn, highlightEl);
-  u.onend = ()=> { if(!readingAll) clearActive(); };
-  u.onerror = ()=> clearActive();
-  setTimeout(()=> synth.speak(u), 60);
+  const segs = splitByLang(text);
+  if(!segs.length) return;
+  setTimeout(()=> playSegments(segs, {
+    onFirstStart: ()=> setPlayingUI(btn, highlightEl),
+    onDone: ()=> { if(!readingAll) clearActive(); }
+  }), 60);
 }
 
 /* 각 "음성으로 듣기" 버튼 연결 */
@@ -996,23 +1045,16 @@ readAllBtn.addEventListener('click', ()=>{
     .map(el => el.innerText.replace(/\s+/g,' ').trim()).filter(Boolean);
   if(!chunks.length) return;
 
+  // 모든 청크를 한글/영어 구간으로 펼쳐서 이어 읽기
+  const segs = [];
+  chunks.forEach(c => splitByLang(c).forEach(s => segs.push(s)));
+  if(!segs.length) return;
+
   readingAll = true;
   setPlayingUI(readAllBtn, null);
   readAllBtn.textContent = '■ 전체 안내 정지';
 
-  let i = 0;
-  function next(){
-    if(!readingAll) return;            // 정지되면 더 진행하지 않음
-    if(i >= chunks.length){ stopAll(); return; }
-    const u = new SpeechSynthesisUtterance(chunks[i]);
-    u.lang = 'ko-KR';
-    if(chosenVoice) u.voice = chosenVoice;
-    u.rate = getRate();
-    u.onend = ()=>{ if(!readingAll) return; i++; next(); };
-    u.onerror = ()=>{ if(!readingAll) return; i++; next(); };
-    synth.speak(u);
-  }
-  setTimeout(next, 90);
+  setTimeout(()=> playSegments(segs, { onDone: ()=> stopAll() }), 90);
 });
 
 /* 페이지를 떠나면 읽기 중지 */
