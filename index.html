@@ -815,20 +815,20 @@
       <!-- 일정 & 리허설 -->
       <div class="staff-block">
         <h3>🎧 공연 일정 &amp; 리허설</h3>
-        <p class="block-desc">7/11(준비·리허설), 7/12(공연 당일) 일정입니다. <b>7/11 리허설 1~6 신청은 카톡방</b>에서 받습니다.</p>
+        <p class="block-desc">7/11(준비·리허설), 7/12(공연 당일) 확정 일정입니다. 리허설은 팀별로 배정돼 있어요.</p>
         <hr class="staff-divider" />
         <div class="sched">
           <div class="sched-day">
             <div class="sched-date">7/11 (토) · 준비일</div>
             <ul>
               <li><span class="t">12:00–14:30</span><span class="ev">세팅 (음향·빔프 설치), 짐 옮기기, 조명, 현수막</span></li>
-              <li class="reh"><span class="t">14:30–15:30</span><span class="ev">리허설 1</span></li>
-              <li class="reh"><span class="t">15:30–16:30</span><span class="ev">리허설 2</span></li>
-              <li class="reh"><span class="t">16:30–17:30</span><span class="ev">리허설 3</span></li>
+              <li class="reh"><span class="t">14:30–15:30</span><span class="ev">리허설 1 <span class="tag">보송</span></span></li>
+              <li class="reh"><span class="t">15:30–16:30</span><span class="ev">리허설 2 <span class="tag">보정</span></span></li>
+              <li class="reh"><span class="t">16:30–17:30</span><span class="ev">리허설 3 <span class="tag">틸송</span></span></li>
               <li><span class="t">17:30–18:30</span><span class="ev">저녁 식사</span></li>
-              <li class="reh"><span class="t">18:30–19:30</span><span class="ev">리허설 4</span></li>
-              <li class="reh"><span class="t">19:30–20:30</span><span class="ev">리허설 5</span></li>
-              <li class="reh"><span class="t">20:30–21:30</span><span class="ev">리허설 6</span></li>
+              <li class="reh"><span class="t">18:30–19:30</span><span class="ev">리허설 4 <span class="tag">틸차</span></span></li>
+              <li class="reh"><span class="t">19:30–20:30</span><span class="ev">리허설 5 <span class="tag">환즈</span></span></li>
+              <li class="reh"><span class="t">20:30–21:30</span><span class="ev">리허설 6 <span class="tag">환송</span></span></li>
               <li><span class="t">21:30–22:00</span><span class="ev">뒷정리 후 귀가</span></li>
             </ul>
           </div>
@@ -893,20 +893,25 @@ let koVoice = null, enVoice = null;
 
 /* 한국어 / 영어 음성을 각각 가장 자연스러운 것으로 자동 선택 */
 function voiceScore(v){
-  const n = (v.name||'').toLowerCase();
+  const n = (v.name||'')+''; const ln = n.toLowerCase();
   let s = 0;
-  if(n.includes('google')) s += 5;
-  if(n.includes('yuna')) s += 4;
-  if(n.includes('clova')||n.includes('네이버')||n.includes('나리')||n.includes('수진')) s += 4;
-  if(n.includes('neural')||n.includes('natural')||n.includes('premium')||n.includes('online')) s += 3;
+  // 고품질·신경망 음성 최우선 (자연스러움)
+  if(/enhanced|premium|neural|natural|siri/.test(ln) || n.includes('고품질') || n.includes('프리미엄')) s += 10;
+  if(ln.includes('google')) s += 6;
+  if(ln.includes('online')) s += 4;
+  if(ln.includes('yuna')||n.includes('유나')) s += 3;
+  if(ln.includes('clova')||n.includes('네이버')||n.includes('나리')||n.includes('수진')||n.includes('서연')||n.includes('지민')) s += 3;
+  if(/compact|eloquence/.test(ln)) s -= 6;   // 저품질 음성은 피함
   return s;
 }
 function enScore(v){
-  const n = (v.name||'').toLowerCase(), l = (v.lang||'').toLowerCase();
+  const n = (v.name||'')+''; const ln = n.toLowerCase(), l = (v.lang||'').toLowerCase();
   let s = 0;
-  if(n.includes('google')) s += 5;
-  if(n.includes('samantha')||n.includes('natural')||n.includes('neural')||n.includes('premium')) s += 3;
+  if(/enhanced|premium|neural|natural|siri/.test(ln)) s += 10;
+  if(ln.includes('google')) s += 6;
+  if(ln.includes('samantha')||ln.includes('ava')||ln.includes('allison')||ln.includes('online')) s += 4;
   if(l === 'en-us') s += 2;
+  if(/compact|eloquence/.test(ln)) s -= 6;
   return s;
 }
 function pickVoices(){
