@@ -153,6 +153,9 @@
   .work .makers{font-weight:900;color:var(--yellow);margin:.5rem 0 1rem;letter-spacing:.02em;}
   .work .desc{font-size:1.05rem;color:#f2ecd8;max-width:48rem;}
   body.theme-dark .work .desc{color:#e9def5;}
+  .work .work-photo{margin-top:1.3rem;}
+  .work .work-photo img{width:100%;max-width:460px;height:auto;border-radius:8px;border:3px solid rgba(244,212,33,.5);display:block;}
+  body.theme-dark .work .work-photo img{border-color:rgba(201,142,214,.55);}
   .work .listen{background:var(--yellow);color:var(--ink);margin-top:1.1rem;}
   body.theme-dark .work .listen{background:var(--accent);color:#16101a;}
   .work .listen.playing{background:var(--purple);color:#fff;}
@@ -199,9 +202,13 @@
   section[id]{scroll-margin-top:4.5rem;}
 
   /* ===== 참여 작가 ===== */
-  .artists .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.7rem 2.4rem;}
-  .artist{border-top:3px solid var(--ink);padding-top:1rem;}
+  .artists .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.7rem 2.4rem;}
+  .artist{display:grid;grid-template-columns:104px 1fr;gap:1rem 1.2rem;align-items:start;border-top:3px solid var(--ink);padding-top:1rem;}
   body.theme-dark .artist{border-top-color:var(--text);}
+  .artist .avatar{width:104px;height:104px;border-radius:14px;object-fit:cover;border:2.5px solid var(--ink);display:block;}
+  body.theme-dark .artist .avatar{border-color:var(--text);}
+  .artist .a-body{min-width:0;}
+  @media (max-width:400px){ .artist{grid-template-columns:84px 1fr;} .artist .avatar{width:84px;height:84px;} }
   .artist h3{font-size:1.45rem;margin-bottom:.5rem;}
   .artist h3 .en{font-family:"Noto Sans KR";font-weight:500;font-size:.9rem;opacity:.6;margin-left:.4rem;}
   .artist .bio{font-size:1.02rem;opacity:.92;}
@@ -596,6 +603,7 @@
             <p class="desc">고대 로마의 시인 오비디우스는 《아모레스》에서 죽은 앵무새 프시타쿠스를 위한 비가를 남겼다. 몇몇 학자들은 이 앵무새가 번역자이자 모방자로서의 시인을 상징한다고 해석한다. 프시타쿠스를 대신해 여러 개의 앵무새 인형이 공간에 배치되어, 각각의 목소리들은 솔로로, 번갈아, 또는 합창으로 번역자들을 위한 생존 지침을 선포한다. 완벽한 번역을 찾으려 하지 말 것. 그리고 연쇄되는 번역을 조심할 것. 목소리들이 하나로 겹쳐지는 순간과 소음이 되는 순간에, 소통의 협화와 불협화도 함께 겹쳐진다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+            <div class="work-photo"><img src="img/work1.jpg" alt="프시타쿠스 프로토콜 Psittacus Protocol 작업 사진" loading="lazy"></div>
         </div>
       </article>
 
@@ -608,6 +616,7 @@
             <p class="desc">서울을 비롯한 도시는 언제나 다양한 소리의 풍경 속에 존재한다. 우리가 흔히 ‘도시의 소리’라고 부르는 것은 자동차의 소음, 상업 공간의 음악, 사람들의 대화처럼 일상적이고 쉽게 포착되는 중심부의 소리들이다. 그러나 그 이면에는 늘 소외되고 배제된 공간과 소리들이 존재한다. 이 작품은 서울의 이른바 ‘혐오시설’이라 불리는 자원회수시설, 재개발 예정지, 공동묘지 등에서 채집한 소리를 기반으로 한다. 우리는 이 감춰진 소리와 공간을 청각적으로 드러내어 다시 구성하고, 도시가 가진 위계적 구조를 다시 사유하며, 잘 알지 못했던 도시의 또 다른 얼굴을 마주하게 된다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+            <div class="work-photo"><img src="img/work2.jpg" alt="히든 사운즈 Hidden Sounds 작업 사진" loading="lazy"></div>
         </div>
       </article>
 
@@ -621,6 +630,7 @@
             <p class="desc" style="opacity:.75;font-size:.95rem;">마술사: 이수민</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+            <div class="work-photo"><img src="img/work3.jpg" alt="풍선, 호흡하다 The Breath of Birthday 작업 사진" loading="lazy"></div>
         </div>
       </article>
 
@@ -633,6 +643,7 @@
             <p class="desc">〈“뉘앙스” 글리프 듀엣〉은 서로 다른 언어를 사용하는 두 캐릭터의 대화를 통해 소통의 과정을 탐구하는 2인용 오디오비주얼 작품이다. 작품은 다른 사람이 이해할 수 없는 자신들만의 언어로 대화하는 캐릭터들의 상상 속 공간에서 시작된다. 이들의 말은 텍스트로 남지 않고 시각적 형태로 변환되어 하나의 악보를 만들어낸다. 생성형 AI를 활용한 이 작업은 언어의 의미를 이해하는 것과 소통하는 것이 항상 같은 과정인지 질문한다. 이해할 수 없는 말은 배제의 이유가 아니라 또 다른 표현의 가능성이 될 수 있다. 관객은 대화를 해독하기보다, 그들이 함께 만들어내는 이미지와 관계를 경험하며 소통의 다양한 모습을 상상하게 된다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+            <div class="work-photo"><img src="img/work4.jpg" alt="“뉘앙스” 글리프 듀엣 “Nuance” Glyph Duet 작업 사진" loading="lazy"></div>
         </div>
       </article>
 
@@ -648,6 +659,7 @@
             <p class="desc" style="opacity:.75;font-size:.95rem;">퍼포머: 유민영</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+            <div class="work-photo"><img src="img/work5.jpg" alt="To-ri 작업 사진" loading="lazy"></div>
         </div>
       </article>
 
@@ -661,6 +673,7 @@
             <p class="desc" style="opacity:.75;font-size:.95rem;">오브제 제작: Studio EAST×EAST · 텍스타일 아트워크: 김성연</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+            <div class="work-photo"><img src="img/work6.jpg" alt="Rhizome 작업 사진" loading="lazy"></div>
         </div>
       </article>
 
@@ -674,53 +687,74 @@
       <h2 style="font-family:'Black Han Sans';font-size:clamp(2.2rem,6vw,3.4rem);margin-bottom:2.2rem;">Artists</h2>
       <div class="grid">
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist1.jpg" alt="신은송 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>신은송</h3>
             <p class="bio">작곡가이자 사운드 아티스트로, 국내외 페스티벌에서 작품을 발표하며 활동하고 있습니다. 자전적 서사를 바탕으로 AI, 입체음향, 인터랙티브 사운드 전시, 필드레코딩 등을 탐구하는 작업을 이어가고 있으며, 2025년에는 국립아시아문화전당 사운드랩 연구원으로 활동하였습니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist2.jpg" alt="신보경 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>신보경</h3>
             <p class="bio">익숙한 것을 새롭게 바라보며 소리와 비소리의 경계를 넘나드는 음악 작업을 이어가고 있습니다. 컴퓨터를 동시대의 악기로 활용하며, 무용·영상·설치 등 다양한 예술 분야와의 협업에도 관심을 두고 있습니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist3.jpg" alt="김이베 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>김이베</h3>
             <p class="bio">음악을 기반으로 시각예술, 퍼포먼스, 인터미디어 실험을 결합하는 다학제적 작업을 수행해왔습니다. 익숙함과 낯섦, 개인과 타자, 자연·인간과 디지털 사이의 역동성을 탐구하며, 시각적 요소를 음악적 구조로 전환하는 오디오비주얼 퍼포먼스를 지속하고 있습니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist4.jpg" alt="틸 최 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>틸 최</h3>
             <p class="bio">구체시와 상호작용하는 음악적 구성에 관심을 두고 있습니다. 기표와 기의의 틈새에서 언어, 번역, 소통을 소재로 매체에 이야기를 실험합니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist5.jpg" alt="이지후 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>이지후</h3>
             <p class="bio">음악 안에서 발생하는 경계에 주목합니다. 존재와 비존재, 완전함과 불완전함, 통제와 우연 사이의 긴장을 청각적 재료로 삼으며, 전자음악과 어쿠스틱 음악 사이의 물리적·개념적 관계를 중심으로 탐구를 이어가고 있습니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist6.jpg" alt="차민휘 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>차민휘</h3>
             <p class="bio">아날로그 악기의 물리적 구조와 전자음악의 알고리즘적 시스템 사이에서 발생하는 사운드를 실험합니다. 기존 악기의 연주 방식을 해체하고 재구성하며, 신체와 사물이 맺는 관계를 새롭게 탐구합니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
         <article class="artist" data-speech-root>
+          <img class="avatar" src="img/artist7.jpg" alt="정혜원 사진" loading="lazy">
+          <div class="a-body">
           <div class="speakable">
             <h3>정혜원</h3>
             <p class="bio">3D 애니메이션을 기반으로 전시와 시각 언어를 확장해온 미디어 아티스트입니다. 공간과 사운드가 만나는 지점을 중심으로 프로젝션 매핑, 실시간 비주얼, 3D 기반 영상을 활용해 감각의 경험을 구성하는 작업을 이어가고 있습니다.</p>
           </div>
           <button class="listen" type="button" data-speak><span class="ico">▶</span> 음성으로 듣기</button>
+        </div>
         </article>
       </div>
     </div>
